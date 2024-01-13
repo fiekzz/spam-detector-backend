@@ -5,10 +5,21 @@ from fastapi.encoders import jsonable_encoder
 from MessageForm import MessageForm
 from CheckSpam import transform_text, predict
 import logging
+from fastapi.middleware.cors import CORSMiddleware
 
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def read_root():
